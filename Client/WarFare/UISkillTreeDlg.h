@@ -52,7 +52,7 @@ public:
 
 protected:
 	void				AllClearImageByName(const std::string& szFN, bool bVisible);
-	void				AllClearImageByNameMaster(const std::string& szFN, bool bVisible);
+	void				AllClearImageByNameMaster(const std::string& szFNMaster, const std::string& szFN, bool bVisible);
 	RECT				GetSampleRect();
 	void				PageButtonInitialize();
 	bool				CheckSkillCanBeUse(__TABLE_UPC_SKILL* pUSkill);

@@ -1276,7 +1276,7 @@ void CUISkillTreeDlg::ButtonVisibleStateSet()
 {
 // temp macro..
 #define ASSET_0 {	\
-	__ASSERT(pButton, "NULL UI Component!!");	if (!pButton) return;	pButton->SetVisible(false);	pButton->SetState(UI_STATE_BUTTON_NORMAL); \
+	__ASSERT(pButton, "NULL UI Component!!"); if (!pButton) return;	pButton->SetVisible(false);	pButton->SetState(UI_STATE_BUTTON_NORMAL); \
 }
 #define ASSET_1 {	\
 	__ASSERT(pButton, "NULL UI Component!!"); if (!pButton) return;	pButton->SetVisible(true);	if ( m_iCurKindOf == 1 )	pButton->SetState(UI_STATE_BUTTON_DOWN);	\
@@ -1728,7 +1728,7 @@ void CUISkillTreeDlg::AllClearImageByName(const std::string& szFN, bool bVisible
 	}
 }
 
-void CUISkillTreeDlg::AllClearImageByNameMaster(const std::string& szFN, bool bVisible)
+void CUISkillTreeDlg::AllClearImageByNameMaster(const std::string& szFNMaster, const std::string& szFN, bool bVisible)
 {
 	CN3UIBase* pBase;
 	CN3UIButton* pButton;
@@ -1742,10 +1742,22 @@ void CUISkillTreeDlg::AllClearImageByNameMaster(const std::string& szFN, bool bV
 	if (pButton != nullptr)
 		pButton->SetVisible(bVisible);
 
-	str = "img_" + szFN;
+	str = "img_" + szFNMaster;
 	pBase = GetChildByID(str);
 	if (pBase != nullptr)
 		pBase->SetVisible(bVisible);
+
+	if (!szFN.empty())
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			str = "img_" + szFN + "_" + std::to_string(i);
+
+			pBase = GetChildByID(str);
+			if (pBase != nullptr)
+				pBase->SetVisible(bVisible);
+		}
+	}
 }
 
 // 문자 역역에서 현재 페이지 설정..
@@ -1755,18 +1767,18 @@ void CUISkillTreeDlg::SetPageInCharRegion()
 
 	switch (CGameBase::s_pPlayer->m_InfoBase.eNation)
 	{
-		// 카루스..
+		// Karus
 		case NATION_KARUS:
 			AllClearImageByName("berserker", false);
-			AllClearImageByNameMaster("Berserker Hero", false);
+			AllClearImageByNameMaster("Berserker Hero", "", false);
 			AllClearImageByName("hunter", false);
-			AllClearImageByNameMaster("Shadow Bane", false);
+			AllClearImageByNameMaster("Shadow Bane", "", false);
 			AllClearImageByName("sorcerer", false);
-			AllClearImageByNameMaster("Elemental Lord", false);
+			AllClearImageByNameMaster("Elemental Lord","", false);
 			AllClearImageByName("shaman", false);
-			AllClearImageByNameMaster("Shadow Knight", false);
+			AllClearImageByNameMaster("Shadow Knight", "", false);
 
-			// 직업.. 
+			// Class
 			switch (CGameBase::s_pPlayer->m_InfoBase.eClass)
 			{
 				case CLASS_KA_WARRIOR:
@@ -1793,35 +1805,35 @@ void CUISkillTreeDlg::SetPageInCharRegion()
 					break;
 
 				case CLASS_KA_GUARDIAN:
-					AllClearImageByNameMaster("Berserker Hero", true);
+					AllClearImageByNameMaster("Berserker Hero", "berserker", true);
 					break;
 
 				case CLASS_KA_PENETRATOR:
-					AllClearImageByNameMaster("Shadow Bane", true);
+					AllClearImageByNameMaster("Shadow Bane", "hunter", true);
 					break;
 
 				case CLASS_KA_NECROMANCER:
-					AllClearImageByNameMaster("Elemental Lord", true);
+					AllClearImageByNameMaster("Elemental Lord", "sorcerer", true);
 					break;
 
 				case CLASS_KA_DARKPRIEST:
-					AllClearImageByNameMaster("Shadow Knight", true);
+					AllClearImageByNameMaster("Shadow Knight", "shaman", true);
 					break;
 			}
 			break;
 
-		// 엘모라도..
+		// El Morad
 		case NATION_ELMORAD:
 			AllClearImageByName("blade", false);
-			AllClearImageByNameMaster("Blade Master", false);
+			AllClearImageByNameMaster("Blade Master", "", false);
 			AllClearImageByName("ranger", false);
-			AllClearImageByNameMaster("Kasar Hood", false);
+			AllClearImageByNameMaster("Kasar Hood", "", false);
 			AllClearImageByName("mage", false);
-			AllClearImageByNameMaster("Arc Mage", false);
+			AllClearImageByNameMaster("Arc Mage", "", false);
 			AllClearImageByName("cleric", false);
-			AllClearImageByNameMaster("Paladin", false);
+			AllClearImageByNameMaster("Paladin", "", false);
 
-			// 직업.. 
+			// Class
 			switch (CGameBase::s_pPlayer->m_InfoBase.eClass)
 			{
 				case CLASS_EL_WARRIOR:
@@ -1831,12 +1843,12 @@ void CUISkillTreeDlg::SetPageInCharRegion()
 					AllClearImageByName("public", true);
 					break;
 
-				case CLASS_EL_RANGER:
-					AllClearImageByName("ranger", true);
-					break;
-
 				case CLASS_EL_BLADE:
 					AllClearImageByName("blade", true);
+					break;
+
+				case CLASS_EL_RANGER:
+					AllClearImageByName("ranger", true);
 					break;
 
 				case CLASS_EL_MAGE:
@@ -1848,19 +1860,19 @@ void CUISkillTreeDlg::SetPageInCharRegion()
 					break;
 
 				case CLASS_EL_PROTECTOR:
-					AllClearImageByNameMaster("Blade Master", true);
+					AllClearImageByNameMaster("Blade Master", "blade", true);
 					break;
 
 				case CLASS_EL_ASSASIN:
-					AllClearImageByNameMaster("Kasar Hood", true);
+					AllClearImageByNameMaster("Kasar Hood", "ranger", true);
 					break;
 
 				case CLASS_EL_ENCHANTER:
-					AllClearImageByNameMaster("Arc Mage", true);
+					AllClearImageByNameMaster("Arc Mage", "mage", true);
 					break;
 
 				case CLASS_EL_DRUID:
-					AllClearImageByNameMaster("Paladin", true);
+					AllClearImageByNameMaster("Paladin", "cleric", true);
 					break;
 			}
 	}
