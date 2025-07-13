@@ -1774,7 +1774,7 @@ void CUISkillTreeDlg::SetPageInCharRegion()
 			AllClearImageByName("hunter", false);
 			AllClearImageByNameMaster("Shadow Bane", "", false);
 			AllClearImageByName("sorcerer", false);
-			AllClearImageByNameMaster("Elemental Lord","", false);
+			AllClearImageByNameMaster("Elemental Lord" ,"", false);
 			AllClearImageByName("shaman", false);
 			AllClearImageByNameMaster("Shadow Knight", "", false);
 
