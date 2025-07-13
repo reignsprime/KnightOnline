@@ -1728,7 +1728,7 @@ void CUISkillTreeDlg::AllClearImageByName(const std::string& szFN, bool bVisible
 	}
 }
 
-void CUISkillTreeDlg::AllClearImageByNameMaster(const std::string& szFNMaster, const std::string& szFN, bool bVisible)
+void CUISkillTreeDlg::AllClearImageByNameMaster(const std::string& szFNMaster, bool bVisible, const std::string& szFN)
 {
 	CN3UIBase* pBase;
 	CN3UIButton* pButton;
@@ -1770,13 +1770,13 @@ void CUISkillTreeDlg::SetPageInCharRegion()
 		// Karus
 		case NATION_KARUS:
 			AllClearImageByName("berserker", false);
-			AllClearImageByNameMaster("Berserker Hero", "", false);
+			AllClearImageByNameMaster("Berserker Hero", false);
 			AllClearImageByName("hunter", false);
-			AllClearImageByNameMaster("Shadow Bane", "", false);
+			AllClearImageByNameMaster("Shadow Bane", false);
 			AllClearImageByName("sorcerer", false);
-			AllClearImageByNameMaster("Elemental Lord" ,"", false);
+			AllClearImageByNameMaster("Elemental Lord", false);
 			AllClearImageByName("shaman", false);
-			AllClearImageByNameMaster("Shadow Knight", "", false);
+			AllClearImageByNameMaster("Shadow Knight", false);
 
 			// Class
 			switch (CGameBase::s_pPlayer->m_InfoBase.eClass)
@@ -1805,19 +1805,19 @@ void CUISkillTreeDlg::SetPageInCharRegion()
 					break;
 
 				case CLASS_KA_GUARDIAN:
-					AllClearImageByNameMaster("Berserker Hero", "berserker", true);
+					AllClearImageByNameMaster("Berserker Hero", true, "berserker");
 					break;
 
 				case CLASS_KA_PENETRATOR:
-					AllClearImageByNameMaster("Shadow Bane", "hunter", true);
+					AllClearImageByNameMaster("Shadow Bane", true, "hunter");
 					break;
 
 				case CLASS_KA_NECROMANCER:
-					AllClearImageByNameMaster("Elemental Lord", "sorcerer", true);
+					AllClearImageByNameMaster("Elemental Lord", true, "sorcerer");
 					break;
 
 				case CLASS_KA_DARKPRIEST:
-					AllClearImageByNameMaster("Shadow Knight", "shaman", true);
+					AllClearImageByNameMaster("Shadow Knight", true, "shaman");
 					break;
 			}
 			break;
@@ -1825,13 +1825,13 @@ void CUISkillTreeDlg::SetPageInCharRegion()
 		// El Morad
 		case NATION_ELMORAD:
 			AllClearImageByName("blade", false);
-			AllClearImageByNameMaster("Blade Master", "", false);
+			AllClearImageByNameMaster("Blade Master", false);
 			AllClearImageByName("ranger", false);
-			AllClearImageByNameMaster("Kasar Hood", "", false);
+			AllClearImageByNameMaster("Kasar Hood", false);
 			AllClearImageByName("mage", false);
-			AllClearImageByNameMaster("Arc Mage", "", false);
+			AllClearImageByNameMaster("Arc Mage", false);
 			AllClearImageByName("cleric", false);
-			AllClearImageByNameMaster("Paladin", "", false);
+			AllClearImageByNameMaster("Paladin", false);
 
 			// Class
 			switch (CGameBase::s_pPlayer->m_InfoBase.eClass)
@@ -1860,19 +1860,19 @@ void CUISkillTreeDlg::SetPageInCharRegion()
 					break;
 
 				case CLASS_EL_PROTECTOR:
-					AllClearImageByNameMaster("Blade Master", "blade", true);
+					AllClearImageByNameMaster("Blade Master", true, "blade");
 					break;
 
 				case CLASS_EL_ASSASIN:
-					AllClearImageByNameMaster("Kasar Hood", "ranger", true);
+					AllClearImageByNameMaster("Kasar Hood", true, "ranger");
 					break;
 
 				case CLASS_EL_ENCHANTER:
-					AllClearImageByNameMaster("Arc Mage", "mage", true);
+					AllClearImageByNameMaster("Arc Mage", true, "mage");
 					break;
 
 				case CLASS_EL_DRUID:
-					AllClearImageByNameMaster("Paladin", "cleric", true);
+					AllClearImageByNameMaster("Paladin", true, "cleric");
 					break;
 			}
 	}
